@@ -1,93 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For You ❤️</title>
-
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #ffd1dc, #fff);
-        font-family: Arial, sans-serif;
-    }
+body {
+  background: linear-gradient(to bottom, #1a1a2e, #16213e);
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding-top: 100px;
+  overflow: hidden;
+}
 
-    .container {
-        text-align: center;
-        padding: 20px;
-    }
+.heart {
+  font-size: 60px;
+  animation: beat 1s infinite;
+}
 
-    .letter-btn {
-        font-size: 60px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        transition: transform 0.3s;
-    }
+@keyframes beat {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
 
-    .letter-btn:hover {
-        transform: scale(1.1);
-    }
+button {
+  margin-top: 30px;
+  padding: 12px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 20px;
+  background-color: #ff4d6d;
+  color: white;
+  cursor: pointer;
+}
 
-    .letter-btn:disabled {
-        cursor: default;
-        opacity: 0.5;
-    }
-
-    .message-box {
-        margin-top: 30px;
-        padding: 20px;
-        max-width: 320px;
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        font-size: 18px;
-        line-height: 1.5;
-        display: none;
-        animation: fadeIn 0.6s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+#hiddenMessage {
+  display: none;
+  margin-top: 20px;
+  font-size: 18px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <button class="letter-btn" id="letterBtn">✉️</button>
+<div class="heart">❤️</div>
 
-    <div class="message-box" id="messageBox"></div>
+<h2>Open this before your surgery</h2>
+
+<p id="typing"></p>
+
+<button onclick="showMessage()">Click when you feel scared</button>
+
+<div id="hiddenMessage">
+  No matter how far I am, I am holding your hand right now.
+  we will face this together and i will always be your side not for tody or tomorrow
+  but for a life time,we will make it happen together.
+  I am so proud of you.
+  And i really love you❤️
 </div>
 
 <script>
-    const messages = [
-        "I know today feels scary, and it’s okay to feel that way.\nYou are safe, and this surgery is here to help you heal.",
-        "You are stronger than you think.\nYou’ve already faced so much, and you are still standing.",
-        "Very soon, this day will be just a memory.\nEasier days, lighter moments, and more smiles are waiting for you.",
-        "I’m so proud of you.\nI’m right here with you—before, during, and after this.\nYou are loved more than you know ❤️"
-    ];
+let text = "You are not alone. Not today. Not ever.";
+let i = 0;
 
-    let index = 0;
-    const button = document.getElementById("letterBtn");
-    const box = document.getElementById("messageBox");
+function typeWriter() {
+  if (i < text.length) {
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typeWriter, 50);
+  }
+}
 
-    button.addEventListener("click", () => {
-        box.style.display = "block";
-        box.textContent = messages[index];
-        index++;
+function showMessage() {
+  document.getElementById("hiddenMessage").style.display = "block";
+}
 
-        if (index === messages.length) {
-            button.disabled = true;
-            button.textContent = "❤️";
-        }
-    });
+typeWriter();
 </script>
 
 </body>
