@@ -1,84 +1,224 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>For You ❤️</title>
-<style>
-body {
-  background: linear-gradient(to bottom, #1a1a2e, #16213e);
-  color: white;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  padding-top: 100px;
-  overflow: hidden;
-}
-
-.heart {
-  font-size: 60px;
-  animation: beat 1s infinite;
-}
-
-@keyframes beat {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-  100% { transform: scale(1); }
-}
-
-button {
-  margin-top: 30px;
-  padding: 12px 25px;
-  font-size: 16px;
-  border: none;
-  border-radius: 20px;
-  background-color: #ff4d6d;
-  color: white;
-  cursor: pointer;
-}
-
-#hiddenMessage {
-  display: none;
-  margin-top: 20px;
-  font-size: 18px;
-}
-</style>
-</head>
-
+```html
 <body>
 
-<div class="heart">❤️</div>
+<div id="hearts"></div>
 
-<h2>Open this before your surgery</h2>
+<div class="card">
 
-<p id="typing"></p>
+    <h1>I'm Sorry ❤️</h1>
 
-<button onclick="showMessage()">Click when you feel scared</button>
+    <p id="message"></p>
 
-<div id="hiddenMessage">
-  No matter how far I am, I am holding your hand right now.
-  we will face this together and i will always be your side not for tody or tomorrow
-  but for a life time,we will make it happen together.
-  I am so proud of you.
-  And i really love you❤️
+    <button id="nextBtn" onclick="nextMessage()">
+        Continue ❤️
+    </button>
+
+    <div id="choiceBox" style="display:none;">
+        <h2>Can you forgive me? 🥺</h2>
+
+        <button onclick="forgive()">
+            Yes ❤️
+        </button>
+
+        <button id="noBtn">
+            Not Yet 😏
+        </button>
+    </div>
+
 </div>
 
 <script>
-let text = "You are not alone. Not today. Not ever.";
-let i = 0;
 
-function typeWriter() {
-  if (i < text.length) {
-    document.getElementById("typing").innerHTML += text.charAt(i);
-    i++;
-    setTimeout(typeWriter, 50);
-  }
+const messages = [
+
+"My Love ❤️",
+
+"I know I don't always get things right.",
+
+"Sometimes I'm uncertain about many things in life.",
+
+"Sometimes I overthink.",
+
+"Sometimes I make mistakes.",
+
+"But there is one thing I have never been uncertain about...",
+
+"My love for you ❤️",
+
+"No matter what happens...",
+
+"No matter how many arguments we have...",
+
+"My heart will always choose you.",
+
+"Every. Single. Time. ❤️",
+
+"You are one of the most precious people in my life.",
+
+"And hurting you is the last thing I ever want.",
+
+"I'm truly sorry. ❤️",
+
+"If you can find a little space in your heart...",
+
+"Please forgive me. 🥺"
+
+];
+
+let current = 0;
+
+const msg = document.getElementById("message");
+
+function nextMessage(){
+
+    if(current < messages.length){
+
+        typeWriter(messages[current]);
+        current++;
+
+    }else{
+
+        document.getElementById("nextBtn").style.display="none";
+        document.getElementById("choiceBox").style.display="block";
+
+    }
 }
 
-function showMessage() {
-  document.getElementById("hiddenMessage").style.display = "block";
+function typeWriter(text){
+
+    msg.innerHTML="";
+
+    let i=0;
+
+    let interval=setInterval(()=>{
+
+        msg.innerHTML += text.charAt(i);
+
+        i++;
+
+        if(i>=text.length){
+            clearInterval(interval);
+        }
+
+    },40);
+
 }
 
-typeWriter();
+const noBtn = document.getElementById("noBtn");
+
+noBtn.addEventListener("mouseover",()=>{
+
+    noBtn.style.position="fixed";
+
+    noBtn.style.left =
+        Math.random()*(window.innerWidth-120)+"px";
+
+    noBtn.style.top =
+        Math.random()*(window.innerHeight-60)+"px";
+
+});
+
+function forgive(){
+
+document.querySelector(".card").innerHTML = `
+
+<h1>💖 Thank You 💖</h1>
+
+<h2>Nothing Matters More Than You ❤️</h2>
+
+<p style="margin-top:20px;">
+
+Today, tomorrow, and every day after that...
+
+my heart belongs to you.
+
+No matter what happens,
+
+no matter what we fight about,
+
+and no matter how difficult life becomes,
+
+you will always be worth fighting for.
+
+❤️ I Love You ❤️
+
+</p>
+
+`;
+
+celebrate();
+
+}
+
+function celebrate(){
+
+for(let i=0;i<100;i++){
+
+let heart=document.createElement("div");
+
+heart.innerHTML="❤️";
+
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top="-20px";
+heart.style.fontSize=(20+Math.random()*25)+"px";
+
+heart.style.animation=
+"fall "+(3+Math.random()*3)+"s linear";
+
+document.body.appendChild(heart);
+
+}
+
+}
+
+for(let i=0;i<30;i++){
+
+let heart=document.createElement("div");
+
+heart.innerHTML="❤️";
+
+heart.style.position="fixed";
+heart.style.left=Math.random()*100+"vw";
+heart.style.top=Math.random()*100+"vh";
+
+heart.style.opacity="0.3";
+
+heart.style.fontSize=
+(10+Math.random()*20)+"px";
+
+heart.style.animation=
+"float "+(4+Math.random()*6)+"s infinite";
+
+document.body.appendChild(heart);
+
+}
+
 </script>
 
+<style>
+
+@keyframes float{
+
+0%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
+100%{transform:translateY(0);}
+
+}
+
+@keyframes fall{
+
+0%{
+transform:translateY(-50px);
+}
+
+100%{
+transform:translateY(120vh);
+}
+
+}
+
+</style>
+
 </body>
-</html>
+```
