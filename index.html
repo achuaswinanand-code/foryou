@@ -1,224 +1,74 @@
-```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kocheee's Treasure Hunt</title>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=NkOWlOVpnaryRA6oT1Cojv88bJQCqrrWBVUBRLjXll9rg9OGjEfghhuXXvM6Lwbh2xdGKOdn4BVX_r8pjERmiOUo6elbpCk9gDBa5-jmWcoI9K_nB3bb-Sv-zpm0aGnPJpze8P44mtNLOfs19Fh7dDdBKu44658eiDC5N_poL3eOQ9TpsNGGX0f-ct3OLAFOL0svOt5Kwtoa3_fI2XWwg3Kjksusx7b4sRoPwgouukuigtiBarkoobPz_YomtbGrvyS-c-jrt6Jf79oLmwzYYKrj8Qt9n4m-sOz6XIDfuq-Asal5edMKYuKWL1Sx-GIyZX89qmtu4pfsxcdc-p-zIw" charset="UTF-8"></script><style>
+body{font-family:Arial;background:linear-gradient(135deg,#ff9a9e,#fad0c4);text-align:center;padding:20px}
+.box{max-width:700px;margin:auto;background:white;border-radius:20px;padding:20px}
+button{padding:10px 16px;margin:8px;border:none;border-radius:10px;cursor:pointer}
+.hidden{display:none}
+</style>
+</head>
 <body>
+<div class="box">
+<h1>🗺️ Treasure Hunt ❤️</h1>
+<p>Find all 3 keys to unlock the treasure.</p>
 
-<div id="hearts"></div>
+<h2>Keys: <span id="keys">0</span>/3 🔑</h2>
 
-<div class="card">
+<div id="room1">
+<h3>🌷 Garden</h3>
+<p>What flower is usually associated with love?</p>
+<button onclick="answer(1,'rose')">Rose</button>
+<button onclick="wrong()">Cactus</button>
+</div>
 
-    <h1>I'm Sorry ❤️</h1>
+<div id="room2" class="hidden">
+<h3>🎬 Movie Room</h3>
+<p>Pick the romantic item:</p>
+<button onclick="answer(2,'heart')">❤️ Heart</button>
+<button onclick="wrong()">🪨 Rock</button>
+</div>
 
-    <p id="message"></p>
+<div id="room3" class="hidden">
+<h3>🌙 Night Room</h3>
+<p>What shines at night?</p>
+<button onclick="answer(3,'moon')">🌙 Moon</button>
+<button onclick="wrong()">🍔 Burger</button>
+</div>
 
-    <button id="nextBtn" onclick="nextMessage()">
-        Continue ❤️
-    </button>
+<div id="treasure" class="hidden">
+<h2>🏆 Treasure Unlocked!</h2>
+<p>💌 Dear Kocheee,</p>
+<p>You found all the keys. This treasure is simple:</p>
+<h3>❤️ you are my biggest treasure, nothing can replace you ❤️</h3>
+<p>i love you forever❤️.</p>
+</div>
 
-    <div id="choiceBox" style="display:none;">
-        <h2>Can you forgive me? 🥺</h2>
-
-        <button onclick="forgive()">
-            Yes ❤️
-        </button>
-
-        <button id="noBtn">
-            Not Yet 😏
-        </button>
-    </div>
-
+<p id="msg"></p>
 </div>
 
 <script>
+let keys=0;
 
-const messages = [
+function answer(room){
+ keys++;
+ document.getElementById('keys').innerText=keys;
+ document.getElementById('msg').innerText='the key to my heart is always for you!❤️ ';
 
-"My Love ❤️",
+ if(room===1) document.getElementById('room2').classList.remove('hidden');
+ if(room===2) document.getElementById('room3').classList.remove('hidden');
 
-"I know I don't always get things right.",
-
-"Sometimes I'm uncertain about many things in life.",
-
-"Sometimes I overthink.",
-
-"Sometimes I make mistakes.",
-
-"But there is one thing I have never been uncertain about...",
-
-"My love for you ❤️",
-
-"No matter what happens...",
-
-"No matter how many arguments we have...",
-
-"My heart will always choose you.",
-
-"Every. Single. Time. ❤️",
-
-"You are one of the most precious people in my life.",
-
-"And hurting you is the last thing I ever want.",
-
-"I'm truly sorry. ❤️",
-
-"If you can find a little space in your heart...",
-
-"Please forgive me. 🥺"
-
-];
-
-let current = 0;
-
-const msg = document.getElementById("message");
-
-function nextMessage(){
-
-    if(current < messages.length){
-
-        typeWriter(messages[current]);
-        current++;
-
-    }else{
-
-        document.getElementById("nextBtn").style.display="none";
-        document.getElementById("choiceBox").style.display="block";
-
-    }
+ if(keys===3){
+   document.getElementById('treasure').classList.remove('hidden');
+ }
 }
 
-function typeWriter(text){
-
-    msg.innerHTML="";
-
-    let i=0;
-
-    let interval=setInterval(()=>{
-
-        msg.innerHTML += text.charAt(i);
-
-        i++;
-
-        if(i>=text.length){
-            clearInterval(interval);
-        }
-
-    },40);
-
+function wrong(){
+ document.getElementById('msg').innerText='Not the correct clue. Try again!';
 }
-
-const noBtn = document.getElementById("noBtn");
-
-noBtn.addEventListener("mouseover",()=>{
-
-    noBtn.style.position="fixed";
-
-    noBtn.style.left =
-        Math.random()*(window.innerWidth-120)+"px";
-
-    noBtn.style.top =
-        Math.random()*(window.innerHeight-60)+"px";
-
-});
-
-function forgive(){
-
-document.querySelector(".card").innerHTML = `
-
-<h1>💖 Thank You 💖</h1>
-
-<h2>Nothing Matters More Than You ❤️</h2>
-
-<p style="margin-top:20px;">
-
-Today, tomorrow, and every day after that...
-
-my heart belongs to you.
-
-No matter what happens,
-
-no matter what we fight about,
-
-and no matter how difficult life becomes,
-
-you will always be worth fighting for.
-
-❤️ I Love You ❤️
-
-</p>
-
-`;
-
-celebrate();
-
-}
-
-function celebrate(){
-
-for(let i=0;i<100;i++){
-
-let heart=document.createElement("div");
-
-heart.innerHTML="❤️";
-
-heart.style.position="fixed";
-heart.style.left=Math.random()*100+"vw";
-heart.style.top="-20px";
-heart.style.fontSize=(20+Math.random()*25)+"px";
-
-heart.style.animation=
-"fall "+(3+Math.random()*3)+"s linear";
-
-document.body.appendChild(heart);
-
-}
-
-}
-
-for(let i=0;i<30;i++){
-
-let heart=document.createElement("div");
-
-heart.innerHTML="❤️";
-
-heart.style.position="fixed";
-heart.style.left=Math.random()*100+"vw";
-heart.style.top=Math.random()*100+"vh";
-
-heart.style.opacity="0.3";
-
-heart.style.fontSize=
-(10+Math.random()*20)+"px";
-
-heart.style.animation=
-"float "+(4+Math.random()*6)+"s infinite";
-
-document.body.appendChild(heart);
-
-}
-
 </script>
-
-<style>
-
-@keyframes float{
-
-0%{transform:translateY(0);}
-50%{transform:translateY(-20px);}
-100%{transform:translateY(0);}
-
-}
-
-@keyframes fall{
-
-0%{
-transform:translateY(-50px);
-}
-
-100%{
-transform:translateY(120vh);
-}
-
-}
-
-</style>
-
 </body>
-```
+</html>
